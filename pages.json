@@ -1,37 +1,44 @@
 {
-  "pages": [{
-    "path": "pages/music/music",
-    "style": {
-      "navigationBarTitleText": "HZHMusic",
-      "enablePullDownRefresh": false
-    }
-  }, {
-    "path": "pages/video/video",
-    "style": {
-      "navigationBarTitleText": "视频",
-      "enablePullDownRefresh": false
-    }
-  }],
-  "globalStyle": {
-    "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
-    "navigationBarBackgroundColor": "#F8F8F8",
-    "backgroundColor": "#fdfdfd",
-    "app-plus": {
-      "background": "#efeff4"
-    }
-  },
-  "tabBar": {
-    "list": [{
-      "text": "音乐",
-      "pagePath": "pages/music/music",
-      "iconPath": "static/tabbar/yinle.png",
-      "selectedIconPath": "static/tabbar/yinle-selected.png"
-    },{
-      "text": "视频",
-      "pagePath": "pages/video/video",
-      "iconPath": "static/tabbar/shipin.png",
-      "selectedIconPath": "static/tabbar/shipin-selected.png"
-    }]
-  }
+	"pages": [{
+		"path": "pages/music/music",
+		"style": {
+			"navigationBarTitleText": "HZHMusic",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/video/video",
+		"style": {
+			"navigationBarTitleText": "视频",
+			"enablePullDownRefresh": false
+		}
+	}, {
+		"path": "pages/detail/detail",
+		"style": {
+			"navigationBarTitleText": "详情",
+			"enablePullDownRefresh": false
+		}
+
+	}],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#fdfdfd",
+		"app-plus": {
+			"background": "#efeff4"
+		}
+	},
+	"tabBar": {
+		"list": [{
+			"text": "音乐",
+			"pagePath": "pages/music/music",
+			"iconPath": "static/tabbar/yinle.png",
+			"selectedIconPath": "static/tabbar/yinle-selected.png"
+		}, {
+			"text": "视频",
+			"pagePath": "pages/video/video",
+			"iconPath": "static/tabbar/shipin.png",
+			"selectedIconPath": "static/tabbar/shipin-selected.png"
+		}]
+	}
 }

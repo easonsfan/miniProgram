@@ -1,6 +1,6 @@
 <template>
   <view class="video-item container">
-    <view class="cover">
+    <view class="cover" @click="NavToDetail">
       <image class="img" :src="imgSrc" mode="widthFix"></image>
       <view class="playCount">
         <uni-icons type="videocam" size="16"></uni-icons>
@@ -17,10 +17,15 @@
 <script setup>
   import { formatDuration } from '@/utils/formatTime.js'
   import { computed } from "vue";
-  const props = defineProps(['imgSrc','title','duration','playCount','singer'])
+  const props = defineProps(['imgSrc','title','duration','playCount','singer','videoId'])
   const durationStr = computed(()=>{
     return formatDuration(props.duration)
   })
+  const NavToDetail = ()=>{
+	  uni.navigateTo({
+	  	url:'/pages/detail/detail?videoId='+props.videoId
+	  })
+  }
 </script>
 
 <style lang="scss">
