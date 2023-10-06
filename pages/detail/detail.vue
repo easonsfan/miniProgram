@@ -6,11 +6,9 @@
 			<text class="singer">{{info.singer}}</text>
 			<text class="song-attr">{{info.playCount}}次播放 - {{info.publishTime}}</text>
 		</view>
+    <text>推荐视频</text>
 		<scroll-view scroll-y="true" >
-			<view>1</view>
-			<view>2</view>
-			<view>3</view>
-			<view>4</view>
+			<view v-for="item in recommendVideos" :key="item.id">{{item.name}}</view>
 		</scroll-view>
 	</view>
 </template>
@@ -21,7 +19,7 @@
 	import {storeToRefs} from 'pinia'
 	import { useVideoDetailStore } from '@/store/detail/index.js'
 	const videoDetailStore = useVideoDetailStore()
-	const {url,info} = storeToRefs(videoDetailStore)
+	const {url,info,recommendVideos} = storeToRefs(videoDetailStore)
 	onLoad((options)=>{
 		videoDetailStore.getVideoInfo(options.videoId)
 		videoDetailStore.getVideoSrc(options.videoId)
@@ -36,7 +34,7 @@
 .desc{
 	display: flex;
 	flex-direction: column;
-	// margin: 10rpx 0;
+	margin-bottom: 20rpx;
 	padding-left: 20rpx;
 	text{
 		font-size: 24rpx;

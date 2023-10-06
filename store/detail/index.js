@@ -4,7 +4,8 @@ export const useVideoDetailStore = defineStore('videoDetail',{
 	state:()=>{
 		return{
 			url:'',
-			info:{}
+			info:{},
+      recommendVideos:[]
 		}
 	},
 	actions:{
@@ -29,7 +30,7 @@ export const useVideoDetailStore = defineStore('videoDetail',{
 		async getRecommendVideo(videoId){
 			const res = await getRecommendVideo({id:videoId})
 			if(res.code==200){
-				
+				this.recommendVideos = res.data
 			}
 		},
 	}

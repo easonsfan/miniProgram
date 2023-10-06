@@ -3,13 +3,15 @@ import { getSwiperData } from '@/services/music/music.js'
 export const useMusicStore = defineStore('music',{
   state:()=>{
     return {
-      swiperData:[],//轮播图数据
+      banners:[],//轮播图数据
     }
   },
   actions:{
-    async getSwiperData(context){
-      console.log(context);
-      const res = await getSwiperData()
+    async getSwiperData(){
+      const res = await getSwiperData({type:2})
+      if(res.code == 200){
+        this.banners = res.banners
+      }
     }
   }
 })
