@@ -14,14 +14,57 @@
 		</swiper>
 		<!-- 推荐歌曲 -->
 		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="clickMore">
-			<view class="left-part">
-				123
-			</view>
-			<view class="right-part">
-				<uni-icons type="right"></uni-icons>
+			<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.al.id">
+				<view class="left-part">
+					<image class="cover" :src="song.al.picUrl" ></image>
+					<view class="desc">
+						<text class="song-name">{{song.name}}</text>
+						<text class="singer">{{song.ar[0].name}}</text>
+					</view>
+				</view>
+				<view class="right-part">
+					<uni-icons type="right"></uni-icons>
+				</view>
 			</view>
 		</music-section>
+		<!-- 热门歌单 -->
+		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="clickMore">
+			<scroll-view scroll-x="true" style="white-space: nowrap;">
+				<view class="playlist" v-for="playlist in hotPlaylist" :key="playlist.id">
+					<view class="cover-wrapper">
+						<image class="cover" :src="playlist.coverImgUrl"></image>
+						<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
+					</view>
+					<text class="playlist-name">{{playlist.name}}</text>
+				</view>
+			</scroll-view>
+		</music-section>
+		<!-- 推荐歌单 -->
+		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="clickMore">
+			<scroll-view scroll-x="true" style="white-space: nowrap;">
+				<view class="playlist" v-for="playlist in recommendPlaylist" :key="playlist.id">
+					<view class="cover-wrapper">
+						<image class="cover" :src="playlist.coverImgUrl"></image>
+						<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
+					</view>
+					<text class="playlist-name">{{playlist.name}}</text>
+				</view>
+			</scroll-view>
+		</music-section>
 		<!-- 巅峰榜 -->
+		<music-section class="ranklist" title="巅峰榜">
+			<view class="ranklist-wrapper">
+				<view class="new-songs">
+					1
+				</view>
+				<view class="original-songs">
+					2
+				</view>
+				<view class="soar-songs">
+					3
+				</view>
+			</view>
+		</music-section>
 	</view>
 </template>
 
@@ -39,7 +82,9 @@
 	import {
 		onLoad
 	} from '@dcloudio/uni-app'
-
+	import {
+		formatNumber
+	} from '@/utils/formatNumber.js'
 	// *****设置轮播图高度*****
 	const swiperHeight = ref('')
 	const setSwiperHeight = (index) => {
@@ -62,7 +107,9 @@
 	const musicStore = useMusicStore()
 	const {
 		banners,
-		recommendSongs
+		recommendSongs,
+		hotPlaylist,
+		recommendPlaylist,
 	} = storeToRefs(musicStore)
 	// *****轮播图*****
 	musicStore.getSwiperData()
@@ -74,6 +121,14 @@
 		console.log('go to more...');
 	}
 	// *****推荐歌曲*****
+	
+	// *****热门歌单*****
+	musicStore.getHotPlaylist()
+	// *****热门歌单*****
+	
+	// *****推荐歌单*****
+	musicStore.getRecommendPlaylist()
+	// *****推荐歌单*****
 </script>
 
 <style lang="scss" scoped>
@@ -94,15 +149,90 @@
 	}
 
 	.swiper-item {
-		image {
+		.banner {
 			width: 100%;
 		}
 	}
 	.recommendSongs{
-		:deep(.content){
+		.song-wrapper{
 			display:flex;
 			justify-content: space-between;
+			padding-bottom: 20rpx;
+		}
+		.left-part{
+			display: flex;
+			.cover{
+				width: 120rpx;
+				height: 120rpx;
+				border-radius: 16rpx;
+			}
+			.desc{
+				display: flex;
+				flex-direction: column;
+				justify-content: space-around;
+				margin-left: 16rpx;
+				.song-name{
+					font-size: 28rpx;
+				}
+				.singer{
+					font-size: 24rpx;
+					color: #aaa;
+				}
+			}
+		}
+		.right-part{
+			display: flex;
+			align-items: center;
 		}
 	}
-	
+	.recommendPlaylist,
+	.hotPlaylist{
+		.playlist{
+			display: inline-block;
+			width: 230rpx;
+		}
+		.cover-wrapper{
+			width: 200rpx;
+			height: 200rpx;
+			position: relative;
+			.cover{
+				width: 100%;
+				height: 100%;
+				border-radius: 20rpx;
+			}
+			.playCount{
+				padding: 8rpx;
+				border-radius: 20rpx;
+				position: absolute;
+				right: 8rpx;
+				bottom: 8rpx;
+				font-size: 20rpx;
+				background-color: rgba(0,0,0,0.5);
+				color: #fff;
+			}
+		}
+		.playlist-name{
+			width: 200rpx;
+			height: 64rpx;
+			font-size: 24rpx;
+			white-space: normal;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+		}
+	}
+	.ranklist{
+		.ranklist-wrapper{
+			.new-songs,
+			.original-songs,
+			.soar-songs
+			{
+				height: 200rpx;
+				background-color: #eeeeee;
+				margin-bottom: 20rpx;
+			}
+		}
+	}
 </style>

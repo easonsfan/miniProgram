@@ -1,10 +1,15 @@
 import {defineStore} from 'pinia'
-import { getRecommendSongs, getSwiperData } from '@/services/music/music.js'
+import { getPlaylist, getRankPlaylist, getSwiperData } from '@/services/music/music.js'
 export const useMusicStore = defineStore('music',{
   state:()=>{
     return {
       banners:[],//轮播图数据
-	  recommendSongs:[],//推荐歌曲
+			recommendSongs:[],//推荐歌曲
+			hotPlaylist:[],// 热门歌单
+			recommendPlaylist:[],// 推荐歌单
+			newSongs:[], // 新歌榜单
+			originalSongs:[], // 原创榜单
+			soarSongs:[], // 飙升榜单
     }
   },
   actions:{
@@ -14,12 +19,43 @@ export const useMusicStore = defineStore('music',{
         this.banners = res.banners
       }
     },
-	async getRecommendSongs(){
-		const res = await getRecommendSongs({id:3778678})
-		if(res.code == 200){
-			this.recommendSongs = res.playlist.tracks.slice(0,6)
-			console.log(this.recommendSongs);
+		async getRecommendSongs(){
+			const res = await getRankPlaylist({id:3778678})
+			if(res.code == 200){
+				this.recommendSongs = res.playlist.tracks
+			}
+		},
+		async getHotPlaylist(){
+			const res = await getPlaylist({limit:10,offset:0})
+			if(res.code==200){
+				this.hotPlaylist = res.playlists
+			}
+		},
+		async getRecommendPlaylist(){
+			const res = await getPlaylist({limit:10,offset:0,cat:'华语'})
+			if(res.code==200){
+				this.recommendPlaylist = res.playlists
+			}
+		},
+		async getRankList(){
+			// 新歌
+			getRankPlaylist({id:3779629}).then(res=>{
+				if(res.code == 200){
+					this.newSongs = res.playlist.tracks
+				}
+			})
+			// 原创
+			getRankPlaylist({id:2884035}).then(res=>{
+				if(res.code == 200){
+					this.originalSongs = res.playlist.tracks
+				}
+			})
+			// 飙升
+			getRankPlaylist({id:19723756}).then(res=>{
+				if(res.code == 200){
+					this.soarSongs = res.playlist.tracks
+				}
+			})
 		}
-	}
   }
 })

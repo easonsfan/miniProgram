@@ -4,7 +4,7 @@
       <image class="img" :src="imgSrc" mode="widthFix"></image>
       <view class="playCount">
         <uni-icons type="videocam" size="16"></uni-icons>
-        <text class="playCount-text">{{playCount}}</text>
+        <text class="playCount-text">{{countStr}}</text>
       </view>
       <text class="duration">{{durationStr}}</text>
     </view>
@@ -16,11 +16,15 @@
 </template>
 <script setup>
   import { formatDuration } from '@/utils/formatTime.js'
+  import { formatNumber } from '@/utils/formatNumber.js'
   import { computed } from "vue";
   const props = defineProps(['imgSrc','title','duration','playCount','singer','videoId'])
   const durationStr = computed(()=>{
     return formatDuration(props.duration)
   })
+	const countStr = computed(()=>{
+	  return formatNumber(props.playCount)
+	})
   const NavToDetail = ()=>{
 	  uni.navigateTo({
 	  	url:'/pages/detail/detail?videoId='+props.videoId

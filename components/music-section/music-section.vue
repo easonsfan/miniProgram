@@ -3,8 +3,8 @@
 		<view class="header">
 			<text class="title">{{title}}</text>
 			<view class="more" v-if="isMore" @click="moreEvent">
-				<text>更多</text>
-				<uni-icons type="right"></uni-icons>
+				<text class="text">更多</text>
+				<uni-icons class="icons" type="right" size="24rpx"></uni-icons>
 			</view>
 		</view>
 		<view class="content">
@@ -24,22 +24,18 @@
 <style lang="scss">
 	.music-section {
 		margin-top: 20rpx;
-
+		
 		.header {
 			display: flex;
 			justify-content: space-between;
-
+			margin-bottom: 20rpx;
 			.title {
 				font-weight: 700;
 				font-size: 32rpx;
 			}
 
 			.more {
-				text {
-					font-size: 24rpx;
-				}
-
-				:deep(.uni-icons) {
+				.text {
 					font-size: 24rpx !important;
 				}
 			}

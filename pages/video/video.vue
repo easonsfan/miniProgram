@@ -8,7 +8,7 @@
       :playCount="item.playCount" 
       :duration="item.mv.videos[0].duration"
       :singer="item.artistName"
-	  :videoId="item.id"
+			:videoId="item.id"
     ></video-item>
   </view>
 </template>
