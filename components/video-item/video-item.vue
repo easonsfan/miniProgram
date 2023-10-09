@@ -27,7 +27,7 @@
 	})
   const NavToDetail = ()=>{
 	  uni.navigateTo({
-	  	url:'/pages/detail/detail?videoId='+props.videoId
+	  	url:'/pages/video-detail/video-detail?videoId='+props.videoId
 	  })
   }
 </script>

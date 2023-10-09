@@ -6,13 +6,13 @@
 			"enablePullDownRefresh": false
 		}
 	}, {
-		"path": "pages/video/video",
+		"path": "pages/video-list/video-list",
 		"style": {
 			"navigationBarTitleText": "视频",
 			"enablePullDownRefresh": false
 		}
 	}, {
-		"path": "pages/detail/detail",
+		"path": "pages/video-detail/video-detail",
 		"style": {
 			"navigationBarTitleText": "详情",
 			"enablePullDownRefresh": false
@@ -45,7 +45,7 @@
 			"selectedIconPath": "static/tabbar/yinle-selected.png"
 		}, {
 			"text": "视频",
-			"pagePath": "pages/video/video",
+			"pagePath": "pages/video-list/video-list",
 			"iconPath": "static/tabbar/shipin.png",
 			"selectedIconPath": "static/tabbar/shipin-selected.png"
 		}]
