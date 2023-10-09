@@ -3,7 +3,7 @@ import { getPlaylist, getRankPlaylist, getSwiperData } from '@/services/music/mu
 export const useMusicStore = defineStore('music',{
   state:()=>{
     return {
-      banners:[],//轮播图数据
+      banners:[''],//轮播图数据
 			recommendSongs:[],//推荐歌曲
 			hotPlaylist:[],// 热门歌单
 			recommendPlaylist:[],// 推荐歌单

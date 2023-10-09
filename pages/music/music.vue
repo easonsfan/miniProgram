@@ -2,7 +2,7 @@
 	<view style="box-sizing: border-box;padding: 20rpx;height: 100%;">
 		<!-- 搜索栏 -->
 		<view class="search-bar" @click="searchPage">
-			<uv-icon name="arrow-right" color="#bbb" size="18"></uv-icon>
+			<uv-icon name="search" color="#bbb" size="36rpx"></uv-icon>
 			<text class="placeholder">搜索你喜欢的歌曲</text>
 		</view>
 		<!-- 轮播图 -->
@@ -12,7 +12,7 @@
 				<image class="banner" :src="banner.pic" mode="widthFix" @load="setSwiperHeight(index)"></image>
 			</swiper-item>
 		</swiper> -->
-		<uv-swiper :list="banners"></uv-swiper>
+		<uv-swiper height="280rpx" imgMode="widthFix" :autoplay="false" :list="banners" circular indicator indicatorMode="dot"></uv-swiper>
 		<!-- 推荐歌曲 -->
 		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
 			<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.al.id">
@@ -24,7 +24,7 @@
 					</view>
 				</view>
 				<view class="right-part">
-					<uv-icon name="right" size="32rpx"></uv-icon>
+					<uv-icon name="arrow-right" size="32rpx"></uv-icon>
 				</view>
 			</view>
 		</music-section>
@@ -96,13 +96,14 @@
 		formatNumber
 	} from '@/utils/formatNumber.js'
 	// *****设置轮播图高度*****
-	// const swiperHeight = ref('')
-	// const setSwiperHeight = (index) => {
-	// 	if (index != 0) return
-	// 	uni.createSelectorQuery().select('.banner').boundingClientRect((banner) => {
-	// 		swiperHeight.value = banner.height + 'px'
-	// 	}).exec()
-	// }
+	const swiperHeight = ref('')
+	const setSwiperHeight = (index) => {
+		// if (index != 0) return
+		uni.createSelectorQuery().select('.uv-swiper__wrapper__item__wrapper__image').boundingClientRect((banner) => {
+      console.log(banner);
+			swiperHeight.value = banner.height + 'px'
+		}).exec()
+	}
 	// *****设置轮播图高度*****
 
 	// *****搜索栏*****
@@ -149,6 +150,8 @@
 
 <style lang="scss" scoped>
 	.search-bar {
+    display: flex;
+    justify-content: center;
 		width: 100%;
 		margin-bottom: 20rpx;
 		background-color: #F8F8F8;
@@ -164,11 +167,6 @@
 		}
 	}
 
-	// .swiper-item {
-	// 	.banner {
-	// 		width: 100%;
-	// 	}
-	// }
 	.recommendSongs{
 		.song-wrapper{
 			display:flex;

@@ -31,6 +31,7 @@
 <style lang="scss">
 .video{
 	width: 100%;
+  height: 450rpx;
 }
 .desc{
 	display: flex;

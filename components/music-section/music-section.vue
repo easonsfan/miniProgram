@@ -35,6 +35,8 @@
 			}
 
 			.more {
+        display: flex;
+        align-items: center;
 				.text {
 					font-size: 24rpx !important;
 				}
