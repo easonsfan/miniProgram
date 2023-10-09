@@ -23,7 +23,7 @@
 					</view>
 				</view>
 				<view class="right-part">
-					<uni-icons type="right"></uni-icons>
+					<uni-icons type="right" size="32rpx"></uni-icons>
 				</view>
 			</view>
 		</music-section>
@@ -54,14 +54,35 @@
 		<!-- 巅峰榜 -->
 		<music-section class="ranklist" title="巅峰榜">
 			<view class="ranklist-wrapper">
-				<view class="new-songs">
-					1
+				<view class="list new-songs">
+					<view class="left-part">
+						<text class="title">{{newSongs.name}}</text>
+						<text class="song" v-for="(song,index) in newSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+					</view>
+					<view class="right-part">
+						<image class="cover" :src="newSongs.coverImgUrl"></image>
+						<text class="playCount">{{formatNumber(newSongs.playCount)}}</text>
+					</view>
 				</view>
-				<view class="original-songs">
-					2
+				<view class="list original-songs">
+					<view class="left-part">
+						<text class="title">{{originalSongs.name}}</text>
+						<text class="song" v-for="(song,index) in originalSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+					</view>
+					<view class="right-part">
+						<image class="cover" :src="originalSongs.coverImgUrl"></image>
+						<text class="playCount">{{formatNumber(originalSongs.playCount)}}</text>
+					</view>
 				</view>
-				<view class="soar-songs">
-					3
+				<view class="list soar-songs">
+					<view class="left-part">
+						<text class="title">{{soarSongs.name}}</text>
+						<text class="song" v-for="(song,index) in soarSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+					</view>
+					<view class="right-part">
+						<image class="cover" :src="soarSongs.coverImgUrl"></image>
+						<text class="playCount">{{formatNumber(soarSongs.playCount)}}</text>
+					</view>
 				</view>
 			</view>
 		</music-section>
@@ -110,6 +131,9 @@
 		recommendSongs,
 		hotPlaylist,
 		recommendPlaylist,
+		newSongs,
+		originalSongs,
+		soarSongs,
 	} = storeToRefs(musicStore)
 	// *****轮播图*****
 	musicStore.getSwiperData()
@@ -129,6 +153,10 @@
 	// *****推荐歌单*****
 	musicStore.getRecommendPlaylist()
 	// *****推荐歌单*****
+	
+	// *****巅峰榜*****
+	musicStore.getRankList()
+	// *****巅峰榜*****
 </script>
 
 <style lang="scss" scoped>
@@ -202,7 +230,7 @@
 			}
 			.playCount{
 				padding: 8rpx;
-				border-radius: 20rpx;
+				border-radius: 10rpx;
 				position: absolute;
 				right: 8rpx;
 				bottom: 8rpx;
@@ -232,6 +260,41 @@
 				height: 200rpx;
 				background-color: #eeeeee;
 				margin-bottom: 20rpx;
+			}
+			.list{
+				display: flex;
+				overflow: hidden;
+				border-radius: 10rpx;
+				.left-part{
+					width: 70%;
+					display: flex;
+					flex-direction: column;
+					padding: 20rpx 0 0 20rpx;
+					.title{
+						margin-bottom: 10rpx;
+					}
+					.song{
+						font-size: 24rpx;
+					}
+				}
+				.right-part{
+					width: 30%;
+					position: relative;
+					.cover{
+						width: 100%;
+						height: 100%;
+					}
+					.playCount{
+						padding: 8rpx;
+						border-radius: 10rpx;
+						position: absolute;
+						right: 8rpx;
+						bottom: 8rpx;
+						font-size: 20rpx;
+						background-color: rgba(0,0,0,0.5);
+						color: #fff;
+					}
+				}
 			}
 		}
 	}

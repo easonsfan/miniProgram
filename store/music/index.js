@@ -7,9 +7,9 @@ export const useMusicStore = defineStore('music',{
 			recommendSongs:[],//推荐歌曲
 			hotPlaylist:[],// 热门歌单
 			recommendPlaylist:[],// 推荐歌单
-			newSongs:[], // 新歌榜单
-			originalSongs:[], // 原创榜单
-			soarSongs:[], // 飙升榜单
+			newSongs:{}, // 新歌榜单
+			originalSongs:{}, // 原创榜单
+			soarSongs:{}, // 飙升榜单
     }
   },
   actions:{
@@ -41,19 +41,19 @@ export const useMusicStore = defineStore('music',{
 			// 新歌
 			getRankPlaylist({id:3779629}).then(res=>{
 				if(res.code == 200){
-					this.newSongs = res.playlist.tracks
+					this.newSongs = res.playlist
 				}
 			})
 			// 原创
 			getRankPlaylist({id:2884035}).then(res=>{
 				if(res.code == 200){
-					this.originalSongs = res.playlist.tracks
+					this.originalSongs = res.playlist
 				}
 			})
 			// 飙升
 			getRankPlaylist({id:19723756}).then(res=>{
 				if(res.code == 200){
-					this.soarSongs = res.playlist.tracks
+					this.soarSongs = res.playlist
 				}
 			})
 		}

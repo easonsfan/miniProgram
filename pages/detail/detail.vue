@@ -4,7 +4,7 @@
 		<view class="desc">
 			<text class="song">{{info.song}}</text>
 			<text class="singer">{{info.singer}}</text>
-			<text class="song-attr">{{info.playCount}}次播放 - {{info.publishTime}}</text>
+			<text class="song-attr">{{formatNumber(info.playCount)}}次播放 - {{info.publishTime}}</text>
 		</view>
     <text>推荐视频</text>
 		<scroll-view scroll-y="true" >
@@ -18,6 +18,7 @@
 	import {ref} from 'vue'
 	import {storeToRefs} from 'pinia'
 	import { useVideoDetailStore } from '@/store/detail/index.js'
+	import {formatNumber} from '@/utils/formatNumber.js'
 	const videoDetailStore = useVideoDetailStore()
 	const {url,info,recommendVideos} = storeToRefs(videoDetailStore)
 	onLoad((options)=>{
