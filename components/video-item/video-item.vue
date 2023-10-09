@@ -3,7 +3,7 @@
     <view class="cover" @click="NavToDetail">
       <image class="img" :src="imgSrc" mode="widthFix"></image>
       <view class="playCount">
-        <uni-icons type="videocam" size="16"></uni-icons>
+        <uv-icons name="play-circle" size="16"></uv-icons>
         <text class="playCount-text">{{countStr}}</text>
       </view>
       <text class="duration">{{durationStr}}</text>

@@ -2,18 +2,19 @@
 	<view style="box-sizing: border-box;padding: 20rpx;height: 100%;">
 		<!-- 搜索栏 -->
 		<view class="search-bar" @click="searchPage">
-			<uni-icons type="search" color="#bbb" size="18"></uni-icons>
+			<uv-icon name="arrow-right" color="#bbb" size="18"></uv-icon>
 			<text class="placeholder">搜索你喜欢的歌曲</text>
 		</view>
 		<!-- 轮播图 -->
-		<swiper class="swiper" :style="{height:swiperHeight}" indicator-dots :autoplay="false" circular :interval="3000"
+		<!-- <swiper class="swiper" :style="{height:swiperHeight}" indicator-dots :autoplay="false" circular :interval="3000"
 			:duration="1000">
 			<swiper-item class="swiper-item" v-for="(banner,index) in banners" :key="banner.bannerId">
 				<image class="banner" :src="banner.pic" mode="widthFix" @load="setSwiperHeight(index)"></image>
 			</swiper-item>
-		</swiper>
+		</swiper> -->
+		<uv-swiper :list="banners"></uv-swiper>
 		<!-- 推荐歌曲 -->
-		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="clickMore">
+		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
 			<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.al.id">
 				<view class="left-part">
 					<image class="cover" :src="song.al.picUrl" ></image>
@@ -23,18 +24,18 @@
 					</view>
 				</view>
 				<view class="right-part">
-					<uni-icons type="right" size="32rpx"></uni-icons>
+					<uv-icon name="right" size="32rpx"></uv-icon>
 				</view>
 			</view>
 		</music-section>
 		<!-- 热门歌单 -->
-		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="clickMore">
+		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
 			<scroll-view scroll-x="true" style="white-space: nowrap;">
 				<playlist-item :playlists="hotPlaylist"></playlist-item>
 			</scroll-view>
 		</music-section>
 		<!-- 推荐歌单 -->
-		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="clickMore">
+		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="navToPlaylist">
 			<scroll-view scroll-x="true" style="white-space: nowrap;">
 				<playlist-item :playlists="recommendPlaylist"></playlist-item>
 			</scroll-view>
@@ -95,13 +96,13 @@
 		formatNumber
 	} from '@/utils/formatNumber.js'
 	// *****设置轮播图高度*****
-	const swiperHeight = ref('')
-	const setSwiperHeight = (index) => {
-		if (index != 0) return
-		uni.createSelectorQuery().select('.banner').boundingClientRect((banner) => {
-			swiperHeight.value = banner.height + 'px'
-		}).exec()
-	}
+	// const swiperHeight = ref('')
+	// const setSwiperHeight = (index) => {
+	// 	if (index != 0) return
+	// 	uni.createSelectorQuery().select('.banner').boundingClientRect((banner) => {
+	// 		swiperHeight.value = banner.height + 'px'
+	// 	}).exec()
+	// }
 	// *****设置轮播图高度*****
 
 	// *****搜索栏*****
@@ -125,26 +126,25 @@
 	} = storeToRefs(musicStore)
 	// *****轮播图*****
 	musicStore.getSwiperData()
-	// *****轮播图*****
-
 	// *****推荐歌曲*****
 	musicStore.getRecommendSongs()
-	const clickMore = ()=>{
-		console.log('go to more...');
-	}
-	// *****推荐歌曲*****
-	
 	// *****热门歌单*****
 	musicStore.getHotPlaylist()
-	// *****热门歌单*****
-	
 	// *****推荐歌单*****
 	musicStore.getRecommendPlaylist()
-	// *****推荐歌单*****
-	
 	// *****巅峰榜*****
 	musicStore.getRankList()
-	// *****巅峰榜*****
+	
+	// 跳转到歌单列表
+	const navToPlaylist = ()=>{
+		uni.navigateTo({
+			url:'/pages/playlist-list/playlist-list'
+		})
+	}
+	// 跳转到排行榜
+	const navToRankList = ()=>{
+		
+	}
 </script>
 
 <style lang="scss" scoped>
@@ -164,11 +164,11 @@
 		}
 	}
 
-	.swiper-item {
-		.banner {
-			width: 100%;
-		}
-	}
+	// .swiper-item {
+	// 	.banner {
+	// 		width: 100%;
+	// 	}
+	// }
 	.recommendSongs{
 		.song-wrapper{
 			display:flex;

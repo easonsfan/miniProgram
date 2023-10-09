@@ -4,7 +4,7 @@
 			<text class="title">{{title}}</text>
 			<view class="more" v-if="isMore" @click="moreEvent">
 				<text class="text">更多</text>
-				<uni-icons class="icons" type="right" size="24rpx"></uni-icons>
+				<uv-icon name="arrow-right" size="24rpx"></uv-icon>
 			</view>
 		</view>
 		<view class="content">

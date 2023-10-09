@@ -16,7 +16,11 @@ export const useMusicStore = defineStore('music',{
     async getSwiperData(){
       const res = await getSwiperData({type:2})
       if(res.code == 200){
-        this.banners = res.banners
+				const banners = []
+				for(let banner of res.banners){
+					banners.push(banner.pic)
+				}
+        this.banners = banners
       }
     },
 		async getRecommendSongs(){
@@ -56,6 +60,6 @@ export const useMusicStore = defineStore('music',{
 					this.soarSongs = res.playlist
 				}
 			})
-		}
+		},
   }
 })
