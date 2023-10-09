@@ -27,6 +27,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/playlist-list/playlist-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

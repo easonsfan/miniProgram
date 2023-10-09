@@ -17,7 +17,7 @@
 	import {onLoad} from "@dcloudio/uni-app"
 	import {ref} from 'vue'
 	import {storeToRefs} from 'pinia'
-	import { useVideoDetailStore } from '@/store/detail/index.js'
+	import { useVideoDetailStore } from '@/store/video-detail/index.js'
 	import {formatNumber} from '@/utils/formatNumber.js'
 	const videoDetailStore = useVideoDetailStore()
 	const {url,info,recommendVideos} = storeToRefs(videoDetailStore)

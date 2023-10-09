@@ -1,5 +1,5 @@
 import {defineStore} from 'pinia'
-import { getVideoList } from '@/services/video/video.js'
+import { getVideoList } from '@/services/video-list/video-list.js'
 export const useVideoStore = defineStore('video',{
   state:()=>{
     return {

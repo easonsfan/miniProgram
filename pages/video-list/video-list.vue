@@ -15,7 +15,7 @@
 
 <script setup>
   import {storeToRefs} from 'pinia'
-  import {useVideoStore} from '@/store/video/index.js'
+  import {useVideoStore} from '@/store/video-list/index.js'
   import { onReachBottom } from '@dcloudio/uni-app'
   import { onBeforeUnmount } from "vue";
   
