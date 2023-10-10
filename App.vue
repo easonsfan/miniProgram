@@ -15,12 +15,7 @@
 
 <style lang="scss">
 	/*每个页面公共css */
-	// @import '@/uni_modules/uni-scss/index.scss';
   page{
     height: 100%;
   }
-	/* #ifndef APP-NVUE */
-	// @import '@/static/customicons.css';
-
-	/* #endif */
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<view class="playlist" v-for="playlist in playlists" :key="playlist.id">
+	<view class="playlist">
 		<view class="cover-wrapper">
 			<image class="cover" :src="playlist.coverImgUrl"></image>
 			<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
@@ -12,7 +12,7 @@
 	import {
 		formatNumber
 	} from '@/utils/formatNumber.js'
-	const props = defineProps(['playlists'])
+	const props = defineProps(['playlist'])
 </script>
 
 <style lang="scss">
@@ -42,7 +42,6 @@
 }
 .playlist-name{
 	width: 200rpx;
-	height: 64rpx;
 	font-size: 24rpx;
 	white-space: normal;
 	overflow: hidden;

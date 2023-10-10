@@ -6,13 +6,7 @@
 			<text class="placeholder">搜索你喜欢的歌曲</text>
 		</view>
 		<!-- 轮播图 -->
-		<!-- <swiper class="swiper" :style="{height:swiperHeight}" indicator-dots :autoplay="false" circular :interval="3000"
-			:duration="1000">
-			<swiper-item class="swiper-item" v-for="(banner,index) in banners" :key="banner.bannerId">
-				<image class="banner" :src="banner.pic" mode="widthFix" @load="setSwiperHeight(index)"></image>
-			</swiper-item>
-		</swiper> -->
-		<uv-swiper height="280rpx" imgMode="widthFix" :autoplay="false" :list="banners" circular indicator indicatorMode="dot"></uv-swiper>
+		<uv-swiper height="280rpx" imgMode="widthFix" :list="banners" circular indicator indicatorMode="dot"></uv-swiper>
 		<!-- 推荐歌曲 -->
 		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
 			<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.al.id">
@@ -30,15 +24,15 @@
 		</music-section>
 		<!-- 热门歌单 -->
 		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
-			<scroll-view scroll-x="true" style="white-space: nowrap;">
-				<playlist-item :playlists="hotPlaylist"></playlist-item>
-			</scroll-view>
+			<uv-scroll-list :indicator="false">
+				<playlist-item :playlist="playlist" v-for="playlist in hotPlaylist" :key="playlist.id"></playlist-item>
+			</uv-scroll-list>
 		</music-section>
 		<!-- 推荐歌单 -->
 		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="navToPlaylist">
-			<scroll-view scroll-x="true" style="white-space: nowrap;">
-				<playlist-item :playlists="recommendPlaylist"></playlist-item>
-			</scroll-view>
+			<uv-scroll-list :indicator="false">
+				<playlist-item :playlist="playlist" v-for="playlist in recommendPlaylist" :key="playlist.id"></playlist-item>
+			</uv-scroll-list>
 		</music-section>
 		<!-- 巅峰榜 -->
 		<music-section class="ranklist" title="巅峰榜">
@@ -95,16 +89,6 @@
 	import {
 		formatNumber
 	} from '@/utils/formatNumber.js'
-	// *****设置轮播图高度*****
-	const swiperHeight = ref('')
-	const setSwiperHeight = (index) => {
-		// if (index != 0) return
-		uni.createSelectorQuery().select('.uv-swiper__wrapper__item__wrapper__image').boundingClientRect((banner) => {
-      console.log(banner);
-			swiperHeight.value = banner.height + 'px'
-		}).exec()
-	}
-	// *****设置轮播图高度*****
 
 	// *****搜索栏*****
 	// 跳转到搜索页面
