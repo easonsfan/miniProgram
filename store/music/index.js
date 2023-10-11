@@ -24,10 +24,12 @@ export const useMusicStore = defineStore('music',{
         this.banners = readonly(banners) 
       }
     },
-		async getRecommendSongs(){
+		async getRecommendSongs(loading){
+			loading.value = true
 			const res = await getRankPlaylist({id:3778678})
 			if(res.code == 200){
-				this.recommendSongs = readonly(res.playlist.tracks)
+				this.recommendSongs = readonly(res.playlist.tracks.slice(0,6))
+				loading.value = false
 			}
 		},
 		async getHotPlaylist(){
@@ -42,11 +44,13 @@ export const useMusicStore = defineStore('music',{
 				this.recommendPlaylist = readonly(res.playlists) 
 			}
 		},
-		async getRankList(){
+		async getRankList(loading){
 			// 新歌
+			loading.value = true
 			getRankPlaylist({id:3779629}).then(res=>{
 				if(res.code == 200){
 					this.newSongs = readonly(res.playlist)
+					loading.value = false
 				}
 			})
 			// 原创

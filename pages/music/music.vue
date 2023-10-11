@@ -9,18 +9,20 @@
 		<uv-swiper height="280rpx" imgMode="widthFix" :list="banners" circular indicator indicatorMode="dot"></uv-swiper>
 		<!-- 推荐歌曲 -->
 		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
-			<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.al.id">
-				<view class="left-part">
-					<image class="cover" :src="song.al.picUrl" ></image>
-					<view class="desc">
-						<text class="song-name">{{song.name}}</text>
-						<text class="singer">{{song.ar[0].name}}</text>
+			<uv-skeleton rows="10"  :loading="loading1">
+				<view class="song-wrapper" v-for="song in recommendSongs" :key="song.al.id">
+					<view class="left-part">
+						<image class="cover" :src="song.al.picUrl" ></image>
+						<view class="desc">
+							<text class="song-name">{{song.name}}</text>
+							<text class="singer">{{song.ar[0].name}}</text>
+						</view>
+					</view>
+					<view class="right-part">
+						<uv-icon name="arrow-right" size="32rpx"></uv-icon>
 					</view>
 				</view>
-				<view class="right-part">
-					<uv-icon name="arrow-right" size="32rpx"></uv-icon>
-				</view>
-			</view>
+			</uv-skeleton>
 		</music-section>
 		<!-- 热门歌单 -->
 		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
@@ -42,36 +44,38 @@
 		<!-- 巅峰榜 -->
 		<music-section class="ranklist" title="巅峰榜">
 			<view class="ranklist-wrapper">
-				<view class="list new-songs">
-					<view class="left-part">
-						<text class="title">{{newSongs.name}}</text>
-						<text class="song" v-for="(song,index) in newSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+				<uv-skeleton rows="7"  :loading="loading2">
+					<view class="list new-songs">
+						<view class="left-part">
+							<text class="title">{{newSongs.name}}</text>
+							<text class="song" v-for="(song,index) in newSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+						</view>
+						<view class="right-part">
+							<image class="cover" :src="newSongs.coverImgUrl"></image>
+							<text class="playCount">{{formatNumber(newSongs.playCount)}}</text>
+						</view>
 					</view>
-					<view class="right-part">
-						<image class="cover" :src="newSongs.coverImgUrl"></image>
-						<text class="playCount">{{formatNumber(newSongs.playCount)}}</text>
+					<view class="list original-songs">
+						<view class="left-part">
+							<text class="title">{{originalSongs.name}}</text>
+							<text class="song" v-for="(song,index) in originalSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+						</view>
+						<view class="right-part">
+							<image class="cover" :src="originalSongs.coverImgUrl"></image>
+							<text class="playCount">{{formatNumber(originalSongs.playCount)}}</text>
+						</view>
 					</view>
-				</view>
-				<view class="list original-songs">
-					<view class="left-part">
-						<text class="title">{{originalSongs.name}}</text>
-						<text class="song" v-for="(song,index) in originalSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+					<view class="list soar-songs">
+						<view class="left-part">
+							<text class="title">{{soarSongs.name}}</text>
+							<text class="song" v-for="(song,index) in soarSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+						</view>
+						<view class="right-part">
+							<image class="cover" :src="soarSongs.coverImgUrl"></image>
+							<text class="playCount">{{formatNumber(soarSongs.playCount)}}</text>
+						</view>
 					</view>
-					<view class="right-part">
-						<image class="cover" :src="originalSongs.coverImgUrl"></image>
-						<text class="playCount">{{formatNumber(originalSongs.playCount)}}</text>
-					</view>
-				</view>
-				<view class="list soar-songs">
-					<view class="left-part">
-						<text class="title">{{soarSongs.name}}</text>
-						<text class="song" v-for="(song,index) in soarSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
-					</view>
-					<view class="right-part">
-						<image class="cover" :src="soarSongs.coverImgUrl"></image>
-						<text class="playCount">{{formatNumber(soarSongs.playCount)}}</text>
-					</view>
-				</view>
+				</uv-skeleton>
 			</view>
 		</music-section>
 	</view>
@@ -117,13 +121,15 @@
 	// *****轮播图*****
 	musicStore.getSwiperData()
 	// *****推荐歌曲*****
-	musicStore.getRecommendSongs()
+	const loading1 = ref(false)
+	musicStore.getRecommendSongs(loading1)
 	// *****热门歌单*****
 	musicStore.getHotPlaylist()
 	// *****推荐歌单*****
 	musicStore.getRecommendPlaylist()
 	// *****巅峰榜*****
-	musicStore.getRankList()
+	const loading2 = ref(false)
+	musicStore.getRankList(loading2)
 	
 	// 跳转到歌单列表
 	const navToPlaylist = ()=>{
