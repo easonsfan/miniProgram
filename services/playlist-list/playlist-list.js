@@ -7,3 +7,7 @@ export function getAllPlaylistCats(data){
 export function getHotPlaylistCats(data){
 	return api.get({url:'/playlist/hot',data})
 }
+// 根据分类获取歌单列表
+export function getPlaylistByCat(data){
+	return api.get({url:'/top/playlist',data})
+}

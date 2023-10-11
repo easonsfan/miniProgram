@@ -25,13 +25,18 @@
 		<!-- 热门歌单 -->
 		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
 			<uv-scroll-list :indicator="false">
-				<playlist-item :playlist="playlist" v-for="playlist in hotPlaylist" :key="playlist.id"></playlist-item>
+				<playlist-item 
+					:playlist="playlist" 
+					v-for="(playlist,index) in hotPlaylist" 
+					:key="playlist.id" 
+					:style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}">
+				</playlist-item>
 			</uv-scroll-list>
 		</music-section>
 		<!-- 推荐歌单 -->
 		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="navToPlaylist">
 			<uv-scroll-list :indicator="false">
-				<playlist-item :playlist="playlist" v-for="playlist in recommendPlaylist" :key="playlist.id"></playlist-item>
+				<playlist-item :playlist="playlist" v-for="(playlist,index) in recommendPlaylist" :key="playlist.id" :style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}"></playlist-item>
 			</uv-scroll-list>
 		</music-section>
 		<!-- 巅峰榜 -->

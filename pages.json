@@ -28,7 +28,7 @@
 	}, {
 		"path": "pages/playlist-list/playlist-list",
 		"style": {
-			"navigationBarTitleText": "",
+			"navigationBarTitleText": "歌单广场",
 			"enablePullDownRefresh": false
 		}
 

@@ -1,4 +1,7 @@
 export function formatNumber(number){
+	if(isNaN(+number)){
+		return 0
+	}
 	if(typeof number != 'number'){
 		number = +number
 	}

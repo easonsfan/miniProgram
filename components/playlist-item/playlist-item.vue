@@ -1,6 +1,6 @@
 <template>
-	<view class="playlist">
-		<view class="cover-wrapper">
+	<view class="playlist" :style="{width:width+'rpx'}">
+		<view class="cover-wrapper" :style="{height:height+'rpx'}">
 			<image class="cover" :src="playlist.coverImgUrl"></image>
 			<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
 		</view>
@@ -12,16 +12,24 @@
 	import {
 		formatNumber
 	} from '@/utils/formatNumber.js'
-	const props = defineProps(['playlist'])
+	const props = defineProps({
+		playlist:Object,
+		width:{
+			type:String,
+			default:'200'
+		},
+		height:{
+			type:String,
+			default:'200'
+		}
+	})
 </script>
 
 <style lang="scss">
 .playlist{
-	display: inline-block;
-	width: 230rpx;
+	margin-bottom: 20rpx;
 }
 .cover-wrapper{
-	width: 200rpx;
 	height: 200rpx;
 	position: relative;
 	.cover{
@@ -41,7 +49,6 @@
 	}
 }
 .playlist-name{
-	width: 200rpx;
 	font-size: 24rpx;
 	white-space: normal;
 	overflow: hidden;
