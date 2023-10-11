@@ -49,6 +49,7 @@
 		playlistStore.getPlaylistByCat(hotPlaylistCats.value[e.detail.current]['name'],loading)
 	}
 	onUnmounted(()=>{
+		// 清空歌单列表数据
 		playlistStore.$reset()
 	})
 </script>

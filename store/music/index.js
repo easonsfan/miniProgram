@@ -1,5 +1,6 @@
 import {defineStore} from 'pinia'
 import { getPlaylist, getRankPlaylist, getSwiperData } from '@/services/music/music.js'
+import { readonly } from 'vue'
 export const useMusicStore = defineStore('music',{
   state:()=>{
     return {
@@ -20,44 +21,44 @@ export const useMusicStore = defineStore('music',{
 				for(let banner of res.banners){
 					banners.push(banner.pic)
 				}
-        this.banners = banners
+        this.banners = readonly(banners) 
       }
     },
 		async getRecommendSongs(){
 			const res = await getRankPlaylist({id:3778678})
 			if(res.code == 200){
-				this.recommendSongs = res.playlist.tracks
+				this.recommendSongs = readonly(res.playlist.tracks)
 			}
 		},
 		async getHotPlaylist(){
 			const res = await getPlaylist({limit:10,offset:0})
 			if(res.code==200){
-				this.hotPlaylist = res.playlists
+				this.hotPlaylist = readonly(res.playlists) 
 			}
 		},
 		async getRecommendPlaylist(){
 			const res = await getPlaylist({limit:10,offset:0,cat:'华语'})
 			if(res.code==200){
-				this.recommendPlaylist = res.playlists
+				this.recommendPlaylist = readonly(res.playlists) 
 			}
 		},
 		async getRankList(){
 			// 新歌
 			getRankPlaylist({id:3779629}).then(res=>{
 				if(res.code == 200){
-					this.newSongs = res.playlist
+					this.newSongs = readonly(res.playlist)
 				}
 			})
 			// 原创
 			getRankPlaylist({id:2884035}).then(res=>{
 				if(res.code == 200){
-					this.originalSongs = res.playlist
+					this.originalSongs = readonly(res.playlist)
 				}
 			})
 			// 飙升
 			getRankPlaylist({id:19723756}).then(res=>{
 				if(res.code == 200){
-					this.soarSongs = res.playlist
+					this.soarSongs = readonly(res.playlist)
 				}
 			})
 		},
