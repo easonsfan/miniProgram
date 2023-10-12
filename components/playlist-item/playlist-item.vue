@@ -1,5 +1,5 @@
 <template>
-	<view class="playlist" :style="{width:width+'rpx'}">
+	<view class="playlist" :style="{width:width+'rpx'}" @click="navToPlaylistDetail">
 		<view class="cover-wrapper" :style="{height:height+'rpx'}">
 			<image class="cover" :src="playlist.coverImgUrl"></image>
 			<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
@@ -23,6 +23,11 @@
 			default:'200'
 		}
 	})
+	const navToPlaylistDetail = ()=>{
+		uni.navigateTo({
+			url:'/pages/playlist-detail/playlist-detail?id='+props.playlist.id
+		})
+	}
 </script>
 
 <style lang="scss">

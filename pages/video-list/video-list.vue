@@ -6,7 +6,7 @@
       :imgSrc="item.cover" 
       :title="item.name" 
       :playCount="item.playCount" 
-      :duration="item.mv.videos[0].duration"
+      :duration="item.duration"
       :singer="item.artistName"
 			:videoId="item.id"
     ></video-item>

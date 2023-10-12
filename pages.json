@@ -24,14 +24,18 @@
 			"navigationBarTitleText": "",
 			"enablePullDownRefresh": false
 		}
-
 	}, {
 		"path": "pages/playlist-list/playlist-list",
 		"style": {
 			"navigationBarTitleText": "歌单广场",
 			"enablePullDownRefresh": false
 		}
-
+	}, {
+		"path": "pages/playlist-detail/playlist-detail",
+		"style": {
+			"navigationBarTitleText": "歌单详情",
+			"enablePullDownRefresh": false
+		}
 	}],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

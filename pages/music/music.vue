@@ -10,12 +10,12 @@
 		<!-- 推荐歌曲 -->
 		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
 			<uv-skeleton rows="10"  :loading="loading1">
-				<view class="song-wrapper" v-for="song in recommendSongs" :key="song.al.id">
+				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id">
 					<view class="left-part">
-						<image class="cover" :src="song.al.picUrl" ></image>
+						<image class="cover" :src="song.cover" ></image>
 						<view class="desc">
 							<text class="song-name">{{song.name}}</text>
-							<text class="singer">{{song.ar[0].name}}</text>
+							<text class="singer">{{song.singer}}</text>
 						</view>
 					</view>
 					<view class="right-part">

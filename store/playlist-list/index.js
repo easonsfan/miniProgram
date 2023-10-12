@@ -1,6 +1,6 @@
 import {defineStore} from 'pinia'
 import { getPlaylistByCat, getHotPlaylistCats, getAllPlaylistCats } from '@/services/playlist-list/playlist-list.js'
-import { readonly } from 'vue'
+import { markRaw } from 'vue'
 export const usePlaylistStore = defineStore('playlist',{
 	state:()=>{
 		return {
@@ -22,7 +22,7 @@ export const usePlaylistStore = defineStore('playlist',{
 				const catList = res.tags.map(tag=>{
 					return {name:tag.name}
 				})
-				this.hotPlaylistCats = catList
+				this.hotPlaylistCats = markRaw(catList)
 			}
 		},
 		async getPlaylistByCat(cat,loading){
@@ -30,7 +30,16 @@ export const usePlaylistStore = defineStore('playlist',{
 			loading.value = true
 			const res = await getPlaylistByCat({limit:20,offset:0,cat})
 			if(res.code ==200){
-				this.playlists[cat] = readonly(res.playlists) 
+				const playlists = res.playlists.map(item=>{
+					return {
+						id:item.id,
+						name:item.name,
+						coverImgUrl:item.coverImgUrl,
+						playCount:item.playCount
+					}
+				})
+				
+				this.playlists[cat] = markRaw(playlists) 
 				loading.value = false
 			}
 		}
