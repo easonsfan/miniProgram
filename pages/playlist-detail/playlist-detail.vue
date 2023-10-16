@@ -41,7 +41,7 @@
 
 <script setup>
 	import {onLoad} from '@dcloudio/uni-app'
-	import { ref } from "vue";
+	import { onUnmounted, ref } from "vue";
 	import { storeToRefs } from 'pinia'
 	import {usePlaylistDetailStore} from '@/store/playlist-detail/index.js'
 	const playlistDetailStore = usePlaylistDetailStore()
@@ -52,6 +52,9 @@
 	const navToPlayMusic = (id)=>{
 		console.log(id);
 	}
+	onUnmounted(()=>{
+		playlistDetailStore.$reset()
+	})
 </script>
 
 <style lang="scss">
@@ -165,7 +168,11 @@
 			text-overflow: ellipsis;
 		}
 		.singer{
+			width: 500rpx;
 			font-size: 24rpx;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
 		}
 	}
 }

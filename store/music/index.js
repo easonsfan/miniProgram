@@ -73,15 +73,31 @@ export const useMusicStore = defineStore('music',{
 			loading.value = true
 			Promise.all([getRankPlaylist({id:3779629}),getRankPlaylist({id:2884035}),getRankPlaylist({id:19723756})])
 			.then(res=>{
-					if(res[0].code == 200){
-						this.newSongs = markRaw(res[0].playlist)
+				res.forEach((result,index)=>{
+					if(result.code==200){
+						const info = {}
+						info.id = result.playlist.id
+						info.name = result.playlist.name
+						info.coverImgUrl = result.playlist.coverImgUrl
+						info.playCount = result.playlist.playCount
+						info.tracks = result.playlist.tracks.map(item=>{
+							return {
+								id:item.id,
+								name:item.name,
+								singer: item.ar.map(ele=>{
+									return ele.name
+								}).join(' & ')
+							}
+						})
+						if(index == 0){
+							this.newSongs = markRaw(info)
+						}else if(index == 1){
+							this.originalSongs = markRaw(info)
+						}else{
+							this.soarSongs = markRaw(info)
+						}
 					}
-					if(res[1].code == 200){
-						this.originalSongs = markRaw(res[1].playlist)
-					}
-					if(res[2].code == 200){
-						this.soarSongs = markRaw(res[2].playlist)
-					}
+				})
 				loading.value = false
 			})
 		},

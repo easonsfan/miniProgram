@@ -8,8 +8,8 @@
 		<!-- 轮播图 -->
 		<uv-swiper height="280rpx" imgMode="widthFix" :list="banners" circular indicator indicatorMode="dot"></uv-swiper>
 		<!-- 推荐歌曲 -->
-		<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList">
-			<uv-skeleton rows="10"  :loading="loading1">
+		<uv-skeleton rows="10"  :loading="loading1">
+			<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList('热歌榜')">
 				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id">
 					<view class="left-part">
 						<image class="cover" :src="song.cover" ></image>
@@ -22,8 +22,8 @@
 						<uv-icon name="arrow-right" size="32rpx"></uv-icon>
 					</view>
 				</view>
-			</uv-skeleton>
-		</music-section>
+			</music-section>
+		</uv-skeleton>
 		<!-- 热门歌单 -->
 		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
 			<uv-scroll-list :indicator="false">
@@ -42,42 +42,42 @@
 			</uv-scroll-list>
 		</music-section>
 		<!-- 巅峰榜 -->
-		<music-section class="ranklist" title="巅峰榜">
-			<view class="ranklist-wrapper">
-				<uv-skeleton rows="7"  :loading="loading2">
-					<view class="list new-songs">
+		<uv-skeleton rows="7"  :loading="loading2">
+			<music-section class="ranklist" title="巅峰榜">
+				<view class="ranklist-wrapper">
+					<view class="list new-songs" @click="navToRankList('新歌榜')">
 						<view class="left-part">
 							<text class="title">{{newSongs.name}}</text>
-							<text class="song" v-for="(song,index) in newSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+							<text class="song" v-for="(song,index) in newSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.singer}}</text>
 						</view>
 						<view class="right-part">
 							<image class="cover" :src="newSongs.coverImgUrl"></image>
 							<text class="playCount">{{formatNumber(newSongs.playCount)}}</text>
 						</view>
 					</view>
-					<view class="list original-songs">
+					<view class="list original-songs" @click="navToRankList('原创榜')">
 						<view class="left-part">
 							<text class="title">{{originalSongs.name}}</text>
-							<text class="song" v-for="(song,index) in originalSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+							<text class="song" v-for="(song,index) in originalSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.singer}}</text>
 						</view>
 						<view class="right-part">
 							<image class="cover" :src="originalSongs.coverImgUrl"></image>
 							<text class="playCount">{{formatNumber(originalSongs.playCount)}}</text>
 						</view>
 					</view>
-					<view class="list soar-songs">
+					<view class="list soar-songs" @click="navToRankList('飙升榜')">
 						<view class="left-part">
 							<text class="title">{{soarSongs.name}}</text>
-							<text class="song" v-for="(song,index) in soarSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.ar[0].name}}</text>
+							<text class="song" v-for="(song,index) in soarSongs?.tracks?.slice(0,3)" :key="song.id">{{index+1}}. {{song.name}} - {{song.singer}}</text>
 						</view>
 						<view class="right-part">
 							<image class="cover" :src="soarSongs.coverImgUrl"></image>
 							<text class="playCount">{{formatNumber(soarSongs.playCount)}}</text>
 						</view>
 					</view>
-				</uv-skeleton>
-			</view>
-		</music-section>
+				</view>
+			</music-section>
+		</uv-skeleton>
 	</view>
 </template>
 
@@ -138,8 +138,10 @@
 		})
 	}
 	// 跳转到排行榜
-	const navToRankList = ()=>{
-		
+	const navToRankList = (title)=>{
+		uni.navigateTo({
+			url:'/pages/rank-list/rank-list?title='+title
+		})
 	}
 </script>
 
@@ -217,7 +219,11 @@
 						margin-bottom: 10rpx;
 					}
 					.song{
+						width: 440rpx;
 						font-size: 24rpx;
+						overflow: hidden;
+						white-space: nowrap;
+						text-overflow: ellipsis;
 					}
 				}
 				.right-part{

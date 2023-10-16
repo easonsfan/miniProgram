@@ -36,7 +36,16 @@
 			"navigationBarTitleText": "歌单详情",
 			"enablePullDownRefresh": false
 		}
-	}],
+	}    ,{
+            "path" : "pages/rank-list/rank-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
