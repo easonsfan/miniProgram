@@ -28,8 +28,12 @@
 			</view>
 		</view>
 		<view class="song-list">
-			<view class="wrapper">
-				<text class="order"></text>
+			<view class="wrapper" v-for="(song,index) in songList" :key="song.id" @click="navToPlayMusic(song.id)">
+				<text class="order">{{index + 1}}</text>
+				<view class="song">
+					<text class="name">{{song.name}}</text>
+					<text class="singer">{{song.singer}}</text>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -43,9 +47,11 @@
 	const playlistDetailStore = usePlaylistDetailStore()
 	const {playlistInfo,songList } = storeToRefs(playlistDetailStore)
 	onLoad((options)=>{
-		// playlistDetailStore.getPlaylistDetail(7688058643)
 		playlistDetailStore.getPlaylistDetail(options.id)
 	})
+	const navToPlayMusic = (id)=>{
+		console.log(id);
+	}
 </script>
 
 <style lang="scss">
@@ -132,6 +138,34 @@
 			.uv-icon__icon{
 				color: #fff !important;
 			}
+		}
+	}
+}
+.song-list{
+	.wrapper{
+		display: flex;
+		height: 100rpx;
+	}
+	.order{
+		width: 80rpx;
+		font-size: 28rpx;
+		line-height: 100rpx;
+		text-align: center;
+	}
+	.song{
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		flex: 1;
+		.name{
+			width: 500rpx;
+			font-size: 28rpx;
+			overflow: hidden;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.singer{
+			font-size: 24rpx;
 		}
 	}
 }

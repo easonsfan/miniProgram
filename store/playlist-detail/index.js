@@ -20,7 +20,6 @@ export const usePlaylistDetailStore = defineStore('playlistDetail',{
 			if(res.code == 200){
 				this.playlistInfo['cover'] = res.playlist.backgroundCoverUrl||res.playlist.coverImgUrl
 				this.playlistInfo['description'] = res.playlist.description
-				console.log(this.playlistInfo['description']);
 				this.playlistInfo['name'] = res.playlist.name
 				this.playlistInfo['subscribedCount'] = res.playlist.subscribedCount
 				this.playlistInfo['creator'] = {
