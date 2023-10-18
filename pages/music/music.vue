@@ -25,24 +25,28 @@
 			</music-section>
 		</uv-skeleton>
 		<!-- 热门歌单 -->
-		<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
-			<uv-scroll-list :indicator="false">
-				<playlist-item 
-					:playlist="playlist" 
-					v-for="(playlist,index) in hotPlaylist" 
-					:key="playlist.id" 
-					:style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}">
-				</playlist-item>
-			</uv-scroll-list>
-		</music-section>
+		<uv-skeleton rows="4"  :loading="loading2">
+			<music-section class="hotPlaylist" title="热门歌单" :isMore="true" @clickMore="navToPlaylist">
+				<uv-scroll-list :indicator="false">
+					<playlist-item 
+						:playlist="playlist" 
+						v-for="(playlist,index) in hotPlaylist" 
+						:key="playlist.id" 
+						:style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}">
+					</playlist-item>
+				</uv-scroll-list>
+			</music-section>
+		</uv-skeleton>
 		<!-- 推荐歌单 -->
-		<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="navToPlaylist">
-			<uv-scroll-list :indicator="false">
-				<playlist-item :playlist="playlist" v-for="(playlist,index) in recommendPlaylist" :key="playlist.id" :style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}"></playlist-item>
-			</uv-scroll-list>
-		</music-section>
+		<uv-skeleton rows="4"  :loading="loading3">
+			<music-section class="recommendPlaylist" title="推荐歌单" :isMore="true" @clickMore="navToPlaylist">
+				<uv-scroll-list :indicator="false">
+					<playlist-item :playlist="playlist" v-for="(playlist,index) in recommendPlaylist" :key="playlist.id" :style="{marginRight:hotPlaylist.length-1==index?'':'20rpx'}"></playlist-item>
+				</uv-scroll-list>
+			</music-section>
+		</uv-skeleton>
 		<!-- 巅峰榜 -->
-		<uv-skeleton rows="7"  :loading="loading2">
+		<uv-skeleton rows="7"  :loading="loading4">
 			<music-section class="ranklist" title="巅峰榜">
 				<view class="ranklist-wrapper">
 					<view class="list new-songs" @click="navToRankList('新歌榜')">
@@ -124,12 +128,14 @@
 	const loading1 = ref(false)
 	musicStore.getRecommendSongs(loading1)
 	// *****热门歌单*****
-	musicStore.getHotPlaylist()
-	// *****推荐歌单*****
-	musicStore.getRecommendPlaylist()
-	// *****巅峰榜*****
 	const loading2 = ref(false)
-	musicStore.getRankList(loading2)
+	musicStore.getHotPlaylist(loading2)
+	// *****推荐歌单*****
+	const loading3 = ref(false)
+	musicStore.getRecommendPlaylist(loading3)
+	// *****巅峰榜*****
+	const loading4 = ref(false)
+	musicStore.getRankList(loading4)
 	
 	// 跳转到歌单列表
 	const navToPlaylist = ()=>{
@@ -153,8 +159,8 @@
 		margin-bottom: 20rpx;
 		background-color: #F8F8F8;
 		border-radius: 40rpx;
-		height: 70rpx;
-		line-height: 70rpx;
+		height: 64rpx;
+		line-height: 64rpx;
 		color: #bbb;
 		text-align: center;
 

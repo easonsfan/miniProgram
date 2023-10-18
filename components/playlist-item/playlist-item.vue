@@ -1,10 +1,10 @@
 <template>
 	<view class="playlist" :style="{width:width+'rpx'}" @click="navToPlaylistDetail">
-		<view class="cover-wrapper" :style="{height:height+'rpx'}">
+		<view class="cover-wrapper" :style="{width:width+'rpx',height:height+'rpx'}">
 			<image class="cover" :src="playlist.coverImgUrl"></image>
 			<text class="playCount">{{formatNumber(playlist.playCount)}}</text>
 		</view>
-		<text class="playlist-name">{{playlist.name}}</text>
+		<text class="playlist-name" :style="{width:width+'rpx'}">{{playlist.name}}</text>
 	</view>
 </template>
 

@@ -40,7 +40,8 @@ export const useMusicStore = defineStore('music',{
 				loading.value = false
 			}
 		},
-		async getHotPlaylist(){
+		async getHotPlaylist(loading){
+			loading.value = true
 			const res = await getPlaylist({limit:10,offset:0})
 			if(res.code==200){
 				const playlists = res.playlists.map(item=>{
@@ -52,9 +53,11 @@ export const useMusicStore = defineStore('music',{
 					}
 				})
 				this.hotPlaylist = markRaw(playlists) 
+				loading.value = false
 			}
 		},
-		async getRecommendPlaylist(){
+		async getRecommendPlaylist(loading){
+			loading.value = true
 			const res = await getPlaylist({limit:10,offset:0,cat:'华语'})
 			if(res.code==200){
 				const playlists = res.playlists.map(item=>{
@@ -66,6 +69,7 @@ export const useMusicStore = defineStore('music',{
 					}
 				})
 				this.recommendPlaylist = markRaw(playlists) 
+				loading.value = false
 			}
 		},
 		async getRankList(loading){

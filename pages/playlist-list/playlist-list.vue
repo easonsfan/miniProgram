@@ -13,9 +13,11 @@
 		<swiper :style="{height:'92vh'}" :indicator-dots="false" :autoplay="false" @change="swiperChange" :current="currentSwiper">
 			<swiper-item v-for="cat in hotPlaylistCats" :key="cat.name">
 				<uv-loading-icon :show="loading" text="加载中" :vertical="true"></uv-loading-icon>
-				<scroll-view class="scroll-view" :scroll-y="true" :enable-flex="true">
-					<view class="item" v-for="playlist in playlists[cat.name]" :key="playlist.id">
-						<playlist-item :playlist="playlist" width="220" height="220"></playlist-item>
+				<scroll-view style="height: 100%;" :scroll-y="true" :enable-flex="true">
+					<view class="scroll-view">
+						<view class="item" v-for="playlist in playlists[cat.name]" :key="playlist.id">
+							<playlist-item :playlist="playlist" width="220" height="220"></playlist-item>
+						</view>
 					</view>
 				</scroll-view>
 			</swiper-item>
@@ -58,9 +60,7 @@
 .scroll-view{
 	display: flex;
 	flex-wrap: wrap;
-	height: 100%;
 	padding: 20rpx;
-	box-sizing: border-box;
 	.item:nth-child(3n-1){
 		margin: 0 24rpx;
 	}
