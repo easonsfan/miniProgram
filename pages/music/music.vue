@@ -151,7 +151,10 @@
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+	.uv-skeleton{
+		margin-top: 10rpx;
+	}
 	.search-bar {
     display: flex;
     justify-content: center;

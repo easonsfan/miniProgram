@@ -1,8 +1,8 @@
 <template>
-	<view>
+	<view class="playlist-list">
 		<uv-tabs
 			:list="hotPlaylistCats" 
-			:itemStyle="{height:'8vh'}" 
+			:itemStyle="{height:'80rpx'}" 
 			:activeStyle="{fontSize:'32rpx'}" 
 			:inactiveStyle="{fontSize:'32rpx'}"
 			lineWidth="44rpx"
@@ -10,7 +10,7 @@
 			@change="tabChange"
 		>
 		</uv-tabs>
-		<swiper :style="{height:'92vh'}" :indicator-dots="false" :autoplay="false" @change="swiperChange" :current="currentSwiper">
+		<swiper class="swiper" :indicator-dots="false" :autoplay="false" @change="swiperChange" :current="currentSwiper">
 			<swiper-item v-for="cat in hotPlaylistCats" :key="cat.name">
 				<uv-loading-icon :show="loading" text="加载中" :vertical="true"></uv-loading-icon>
 				<scroll-view style="height: 100%;" :scroll-y="true" :enable-flex="true">
@@ -57,6 +57,14 @@
 </script>
 
 <style lang="scss">
+	.playlist-list{
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+	}
+	.swiper{
+		flex: 1;
+	}
 .scroll-view{
 	display: flex;
 	flex-wrap: wrap;
