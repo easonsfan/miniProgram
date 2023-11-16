@@ -2,6 +2,7 @@
 	<view>
 		<view class="playlist-info">
 			<image class="cover" :src="playlistInfo.cover" mode="aspectFill"></image>
+      <view class="mask"></view>
 			<view class="desc">
 				<image class="cover" :src="playlistInfo.cover" ></image>
 				<view class="info">
@@ -28,7 +29,7 @@
 			</view>
 		</view>
 		<view class="song-list">
-			<view class="wrapper" v-for="(song,index) in songList" :key="song.id" @click="navToPlayMusic(song.id)">
+			<view class="wrapper" v-for="(song,index) in songList" :key="song.id" @click="navToMusicPlayer(song.id)">
 				<text class="order">{{index + 1}}</text>
 				<view class="song">
 					<text class="name">{{song.name}}</text>
@@ -49,8 +50,11 @@
 	onLoad((options)=>{
 		playlistDetailStore.getPlaylistDetail(options.id)
 	})
-	const navToPlayMusic = (id)=>{
-		console.log(id);
+  // 跳转到播放页面
+	const navToMusicPlayer = (id)=>{
+		uni.navigateTo({
+			url:'/pages/music-player/music-player?id='+id
+		})
 	}
 	onUnmounted(()=>{
 		playlistDetailStore.$reset()
@@ -69,9 +73,15 @@
 		width: 100%;
 		height: 100%;
 		position: absolute;
-		filter: blur(5px);
-		z-index: -1;
+    z-index: -1;
 	}
+  .mask{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    backdrop-filter: blur(7px);
+    z-index: -1;
+  }
 	.desc{
 		display: flex;
 		margin-top: 60rpx;

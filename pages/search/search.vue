@@ -24,7 +24,7 @@
 		<view class="search-result" v-show="showResult&&!isFocus">
 			<uv-loading-icon :show="loading" text="加载中" :vertical="true"></uv-loading-icon>
 			<scroll-view scroll-y="true" style="height: 100%;">
-				<view class="result-list" v-for="(song,index) in searchResult" :key="song.id">
+				<view class="result-list" v-for="(song,index) in searchResult" :key="song.id" @click="navToMusicPlayer(song.id)">
 					<text class="order">{{index + 1}}</text>
 					<view class="song">
 						<text class="name">{{song.name}}</text>
@@ -80,6 +80,12 @@
 	const handleClear = () =>{
 		console.log('clear');
 	}
+  // 跳转到播放页面
+  const navToMusicPlayer = (id)=>{
+  	uni.navigateTo({
+  		url:'/pages/music-player/music-player?id='+id
+  	})
+  }
 </script>
 <style lang="scss">
 	.search{

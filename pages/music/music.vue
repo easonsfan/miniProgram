@@ -1,5 +1,5 @@
 <template>
-	<view style="box-sizing: border-box;padding: 20rpx;height: 100%;">
+	<view style="box-sizing: border-box;padding: 20rpx;height: 100%;overflow: auto;">
 		<!-- 搜索栏 -->
 		<view class="search-bar" @click="searchPage">
 			<uv-icon name="search" color="#bbb" size="36rpx"></uv-icon>
@@ -10,7 +10,7 @@
 		<!-- 推荐歌曲 -->
 		<uv-skeleton rows="10"  :loading="loading1">
 			<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList('热歌榜')">
-				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id">
+				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id" @click="navToMusicPlayer(song.id)">
 					<view class="left-part">
 						<image class="cover" :src="song.cover" ></image>
 						<view class="desc">
@@ -148,6 +148,12 @@
 			url:'/pages/rank-list/rank-list?title='+title
 		})
 	}
+  // 跳转到播放页面
+  const navToMusicPlayer = (id)=>{
+    uni.navigateTo({
+    	url:'/pages/music-player/music-player?id='+id
+    })
+  }
 </script>
 
 <style lang="scss">

@@ -44,6 +44,16 @@
                 "enablePullDownRefresh": false
             }
             
+        },
+        {
+          "path" : "pages/music-player/music-player",
+          "style" : 
+          {
+            "navigationBarTitleText" : "",
+            "enablePullDownRefresh" : false,
+            "navigationStyle":"custom",
+            "navigationBarTextStyle": "white"
+          }
         }
     ],
 	"globalStyle": {
@@ -56,6 +66,7 @@
 		}
 	},
 	"tabBar": {
+    "selectedColor": "#07c160",
 		"list": [{
 			"text": "音乐",
 			"pagePath": "pages/music/music",

@@ -1,7 +1,7 @@
 <template>
 	<view class="song-list">
 		<text class="title">{{title}}</text>
-		<view class="wrapper" v-for="(song,index) in songList" :key="song.id" @click="navToPlayMusic(song.id)">
+		<view class="wrapper" v-for="(song,index) in songList" :key="song.id" @click="navToMusicPlayer(song.id)">
 			<text class="order">{{index + 1}}</text>
 			<view class="song">
 				<text class="name">{{song.name}}</text>
@@ -49,8 +49,11 @@
 			songList.value = markRaw(soarSongs.value.tracks)
 		}
 	})
-	const navToPlayMusic = (id) => {
-		console.log(id);
+  // 跳转到播放页面
+	const navToMusicPlayer = (id) => {
+		uni.navigateTo({
+			url:'/pages/music-player/music-player?id='+id
+		})
 	}
 </script>
 

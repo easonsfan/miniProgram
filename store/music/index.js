@@ -30,7 +30,7 @@ export const useMusicStore = defineStore('music',{
 			if(res.code == 200){
 				const songs = res.playlist.tracks.map(item=>{
 					return {
-						id:item.al.id,
+						id:item.id,
 						name:item.name,
 						cover:item.al.picUrl,
 						singer:item.ar[0].name
