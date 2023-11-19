@@ -3,13 +3,13 @@ import { getSongInfo } from '@/services/music-player/music-player'
 export const useMusicPlayerStore = defineStore('musicPlayer',{
   state:()=>{
     return {
-      cover:''
+      currentSong:{}
     }
   },
   actions:{
     async getSongInfo(id){
       const res = await getSongInfo({ids:id})
-      this.cover = res.songs[0].al.picUrl
+      this.currentSong = res.songs[0]
     }
   }
 })
