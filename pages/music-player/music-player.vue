@@ -26,7 +26,7 @@
               <view class="progress">
                 <slider class="slider" :value="sliderValue" block-size="12" @change="sliderChangeEvent" @changing="sliderChangingEvent"/>
                 <view class="time">
-                  <text class="current">{{currentTime}}</text>
+                  <text class="current">{{formatDuration(currentTime)}}</text>
                   <text class="duration">{{formatDuration(currentSong.dt)}}</text>
                 </view>
               </view>
@@ -80,7 +80,6 @@
     // 监听歌曲是否能播放
     musicPlayer.onCanplay(()=>{
       musicPlayer.play()
-      console.log('play');
     })
     // 监听歌曲播放时
     musicPlayer.onTimeUpdate(setProcess)
@@ -102,7 +101,7 @@
   const setProcess = ()=>{
     if(isSliderChanging) return
     // 设置当前时间
-    currentTime.value = formatDuration(musicPlayer.currentTime * 1000)
+    currentTime.value = musicPlayer.currentTime * 1000
     // 设置滑动条位置
     sliderValue.value = Math.floor(musicPlayer.currentTime) * 1000 / currentSong.value.dt * 100
   }
@@ -111,7 +110,7 @@
   }
   const sliderChangeEvent = (e)=>{
     musicPlayer.pause()
-    currentTime.value = formatDuration(e.detail.value / 100 * currentSong.value.dt)
+    currentTime.value = e.detail.value / 100 * currentSong.value.dt
     musicPlayer.seek(Math.floor(e.detail.value / 100 * currentSong.value.dt / 1000))
     musicPlayer.onSeeked(()=>{
       musicPlayer.play()
@@ -120,7 +119,7 @@
   }
   const sliderChangingEvent = (e)=>{
     isSliderChanging = true
-    currentTime.value = formatDuration(e.detail.value / 100 * currentSong.value.dt)
+    currentTime.value = e.detail.value / 100 * currentSong.value.dt
   }
   // 暂停或者播放
   const pauseOrPlay = ()=>{
