@@ -21,7 +21,7 @@
                 <text>{{currentSong?.ar[0]?.name}}</text>
               </view>
               <view class="lyric">
-                <text>郭顶郭顶郭顶郭顶</text>
+                <text>{{lyricText}}</text>
               </view>
               <view class="progress">
                 <slider class="slider" :value="sliderValue" block-size="12" @change="sliderChangeEvent" @changing="sliderChangingEvent"/>
@@ -59,10 +59,10 @@
   import { onUnmounted, ref } from 'vue';
   import { storeToRefs } from 'pinia'
   import { useMusicPlayerStore } from '@/store/music-player/index.js'
-  import { formatDuration } from '@/utils/formatTime';
+  import { formatDuration } from '@/utils/formatTime.js';
   
   const musicPlayerStore = useMusicPlayerStore()
-  const { currentSong } = storeToRefs(musicPlayerStore)
+  const { currentSong, lyrics } = storeToRefs(musicPlayerStore)
   
   const id = ref('')
   const winHeight = ref('')
@@ -70,10 +70,15 @@
   const musicPlayer = uni.createInnerAudioContext()
   const sliderValue = ref(0)
   let isSliderChanging = false // slider拖动时不需要设置进度条和时间
-  let isPlaying = ref(false) // 是否播放状态
+  const isPlaying = ref(false) // 是否播放状态
+  const lyricText = ref('') // 当前播放的歌词
   
+  const back = ()=> {
+    uni.navigateBack()
+  }
   onLoad(async (options)=>{
     await musicPlayerStore.getSongInfo(options.id)
+    musicPlayerStore.getSongLyric(options.id)
     winHeight.value = uni.getSystemInfoSync().statusBarHeight + 44
     // 设置歌曲播放路径
     musicPlayer.src = `https://music.163.com/song/media/outer/url?id=${options.id}.mp3`
@@ -102,12 +107,29 @@
     if(isSliderChanging) return
     // 设置当前时间
     currentTime.value = musicPlayer.currentTime * 1000
+    setLyric(currentTime.value)
     // 设置滑动条位置
     sliderValue.value = Math.floor(musicPlayer.currentTime) * 1000 / currentSong.value.dt * 100
   }
-  const back = ()=> {
-    uni.navigateBack()
+  // 设置当前歌词
+  const setLyric = (currentTime)=>{
+    for(let lyric of lyrics.value){
+      if(currentTime >= lyric.time){
+        lyricText.value = lyric.text
+      }
+    }
   }
+  // 暂停或者播放
+  const pauseOrPlay = ()=>{
+    if(isPlaying.value){
+      isPlaying.value = false
+      musicPlayer.pause()
+    }else{
+      isPlaying.value = true
+      musicPlayer.play()
+    }
+  }
+  
   const sliderChangeEvent = (e)=>{
     musicPlayer.pause()
     currentTime.value = e.detail.value / 100 * currentSong.value.dt
@@ -120,16 +142,6 @@
   const sliderChangingEvent = (e)=>{
     isSliderChanging = true
     currentTime.value = e.detail.value / 100 * currentSong.value.dt
-  }
-  // 暂停或者播放
-  const pauseOrPlay = ()=>{
-    if(isPlaying.value){
-      isPlaying.value = false
-      musicPlayer.pause()
-    }else{
-      isPlaying.value = true
-      musicPlayer.play()
-    }
   }
 </script>
 
