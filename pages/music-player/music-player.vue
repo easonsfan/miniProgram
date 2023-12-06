@@ -20,8 +20,8 @@
               <view class="singer">
                 <text>{{currentSong?.ar[0]?.name}}</text>
               </view>
-              <view class="lyric">
-                <text>{{lyricText}}</text>
+              <view class="lyric" style="height: 80rpx;line-height: 80rpx;">
+                <text >{{lyricText}}</text>
               </view>
               <view class="progress">
                 <slider class="slider" :value="sliderValue" block-size="12" @change="sliderChangeEvent" @changing="sliderChangingEvent"/>
@@ -46,7 +46,15 @@
         </swiper-item>
         <swiper-item>
           <view class="swiper-item">
-            456
+            <scroll-view scroll-y class="lyric-wrapper" :scroll-top="currentLyricIndex * 35">
+              <view 
+                :class="['text',currentLyricIndex==index?'active':'']" 
+                :style="{paddingTop:index==0?'600rpx':0,paddingBottom:index==lyrics.length-1?'300rpx':0}" 
+                v-for="(lyric,index) in lyrics" 
+                :key="lyric.time">
+                  {{lyric.text}}
+              </view>
+            </scroll-view>
           </view>
         </swiper-item>
       </swiper>
@@ -72,6 +80,7 @@
   let isSliderChanging = false // slider拖动时不需要设置进度条和时间
   const isPlaying = ref(false) // 是否播放状态
   const lyricText = ref('') // 当前播放的歌词
+  let currentLyricIndex = 0 // 当前播放歌词的位置
   
   const back = ()=> {
     uni.navigateBack()
@@ -113,9 +122,10 @@
   }
   // 设置当前歌词
   const setLyric = (currentTime)=>{
-    for(let lyric of lyrics.value){
-      if(currentTime >= lyric.time){
-        lyricText.value = lyric.text
+    for(let i = 0; i < lyrics.value.length; i++){
+      if(currentTime >= lyrics.value[i].time){
+        lyricText.value = lyrics.value[i].text
+        currentLyricIndex = i
       }
     }
   }
@@ -185,7 +195,6 @@
         color: #ccc;
       }
       .lyric{
-        margin: 40rpx 0 20rpx 0;
         font-size: 26rpx;
         text-align: center;
       }
@@ -216,6 +225,19 @@
           width: 120rpx;
           height: 120rpx;
         }
+      }
+    }
+    .lyric-wrapper{
+      display: flex;
+      flex-direction: column;
+      height:100%;
+      font-size: 28rpx;
+      .text{
+        margin-bottom: 20rpx;
+        text-align: center;
+      }
+      .active{
+        color: #0f0;
       }
     }
   }
