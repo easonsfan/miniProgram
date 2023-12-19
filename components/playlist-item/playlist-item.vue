@@ -54,6 +54,7 @@
 	}
 }
 .playlist-name{
+  margin-top: 8rpx;
 	font-size: 24rpx;
 	white-space: normal;
 	overflow: hidden;

@@ -10,7 +10,7 @@
 		<!-- 推荐歌曲 -->
 		<uv-skeleton rows="10"  :loading="loading1">
 			<music-section class="recommendSongs" title="推荐歌曲" :isMore="true" @clickMore="navToRankList('热歌榜')">
-				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id" @click="navToMusicPlayer(song.id)">
+				<view class="song-wrapper" v-for="song in recommendSongs.slice(0,6)" :key="song.id" @click="navToMusicPlayer(song.id,recommendSongs.slice(0,10))">
 					<view class="left-part">
 						<image class="cover" :src="song.cover" ></image>
 						<view class="desc">
@@ -149,9 +149,12 @@
 		})
 	}
   // 跳转到播放页面
-  const navToMusicPlayer = (id)=>{
+  const navToMusicPlayer = (id,songsList)=>{
     uni.navigateTo({
-    	url:'/pages/music-player/music-player?id='+id
+    	url:'/pages/music-player/music-player?id='+id,
+      success(res){
+        res.eventChannel.emit('sendSongsList', {songsList})
+      }
     })
   }
 </script>
