@@ -32,14 +32,14 @@
               </view>
               <view class="operation">
                 <image class="btn mode" :src="`../../static/player/play_${currentMode}.png`" @click="modeChangeEvent"></image>
-                <image class="btn prev" src="../../static/player/play_prev.png" @click="prevSong"></image>
+                <image class="btn prev" src='../../static/player/play_prev.png' @click="prevSong"></image>
                 <image 
                   class="btn pauseOrPlay" 
                   :src="`../../static/player/play_${isPlaying?'pause':'resume'}.png`"
                   @click="pauseOrPlay"
                 ></image>
-                <image class="btn next" src="../../static/player/play_next.png" @click="nextSong"></image>
-                <image class="btn list" src="../../static/player/play_music.png"></image>
+                <image class="btn next" src='../../static/player/play_next.png' @click="nextSong"></image>
+                <image class="btn list" src='../../static/player/play_music.png'></image>
               </view>
             </view>
           </view>
